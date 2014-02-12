@@ -1,3 +1,4 @@
 <div class="ng-template editor">
-    <pre ng-bind-html="data.content"></pre>
+    <textarea ui-codemirror ng-model="data.content"></textarea>
+    <md markdown="{{data.content}}"></md>
 </div>

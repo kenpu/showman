@@ -1,4 +1,4 @@
-define(["jquery", "angular", "angular-resource", "angular-sanitize"], function($, angular) {
+define(["jquery", "marked", "angular", "angular-resource", "angular-sanitize"], function($, marked, angular) {
     var app = angular.module("commonDirectives", ["ngResource", "ngSanitize"]);
     app.directive('filelist', function($http) {
         return {
@@ -21,6 +21,19 @@ define(["jquery", "angular", "angular-resource", "angular-sanitize"], function($
                 var getUrl = "/api/file/" + attrs.filename;
                 $http.get(getUrl).success(function(data) {
                     scope.data = data;
+                });
+            }
+        }
+    })
+    .directive('md', function() {
+        return {
+            restrict: 'E',
+            template: "<div></div>",
+            replace: true,
+            link: function(scope, element, attrs) {
+                attrs.$observe('markdown', function(markdown) {
+                    var html = marked(markdown);
+                    element.html(html);
                 });
             }
         }

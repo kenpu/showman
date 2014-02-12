@@ -4,20 +4,27 @@ import (
 	"github.com/astaxie/beego"
     "path/filepath"
     "os"
+    "io/ioutil"
 )
 
 var RepositoryDir string
 
-type MainController struct {
-	beego.Controller
+type Controller struct {
+    beego.Controller
 }
 
-func (this *MainController) Get() {
-	this.Data["Website"] = "beego.me"
-	this.Data["Email"] = "astaxie@gmail.com"
-	this.TplNames = "index.tpl"
-    this.Data["Title"] = "Go 4 It"
+func (this *Controller) ServeJsonFile(filename string) {
+    content, err := ioutil.ReadFile(filename)
+    if err != nil {
+        this.Data["json"] = map[string]string {
+            "error": err.Error(),
+        }
+    } else {
+        this.Ctx.Output.Header("Content-Type", "application/json;charset=UTF-8")
+        this.Ctx.Output.Body(content)
+    }
 }
+
 
 type Test struct {
     beego.Controller

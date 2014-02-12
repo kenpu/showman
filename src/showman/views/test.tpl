@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html>
-    {{template "header.html" .}}
+    <head>{{template "header.html" .}}</head>
     <body>
         <div class="container">
             <h1> Hello </h1>

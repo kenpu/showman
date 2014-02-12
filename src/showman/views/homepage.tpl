@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html>
-	{{template "header.html" .}}
+	<head>{{template "header.html" .}}</head>
   	<body style="margin-top: 50px">
         {{template "fragments/navbar.html" .}}
   		<div class="container">

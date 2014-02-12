@@ -1,0 +1,34 @@
+<div class="ng-template filelist">
+    <ul>
+        <li ng-repeat="path in files">
+            <a class="view" href="/view/{{path}}"><span>{{path}}</span></a>
+            <a class="btn btn-primary edit" href="/edit/{{path}}"><i class="fa fa-pencil"></i></a>
+        </li>
+    </ul>
+    <style>
+    .ng-template.filelist {
+        font-family: "Courier New";
+
+    }
+    .ng-template.filelist span:hover {
+        font-size: 120%;
+    }
+    .ng-template.filelist ul {
+        list-style: none;
+        margin-left: 0;
+        padding-left: 0;
+    }
+    .ng-template.filelist li {
+        padding-top: 5px;
+    }
+    .ng-template.filelist li:first-child {
+        padding-top: 0px;
+    }
+    .ng-template.filelist li a.view {
+        width: 400px;
+        display: inline-block;
+    }
+    .ng-template.filelist li a.edit         {color: #fff; background: #888; border: none;}
+    .ng-template.filelist li a.edit:hover   {background: #000;}
+    </style>
+</div>

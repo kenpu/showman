@@ -1,0 +1,49 @@
+<head>
+    <title>{{.Title}}</title>
+    <link rel="stylesheet" href="/static/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/lib/font-awesome-4.0.3/css/font-awesome.min.css">
+    <script src="/static/require.js"></script>
+    <script>
+    requirejs.config({
+        "baseUrl": "/static",
+        "paths": {
+          "jquery": "/static/lib/jquery.min",
+          "angular": "/static/lib/angular/angular.min",
+          "angular-resource": "/static/lib/angular/angular-resource.min",
+          "angular-sanitize": "/static/lib/angular/angular-sanitize.min",
+          "marked": "/static/lib/marked",
+          "mathjax": "http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML&amp;delayStartupUntil=configured",
+        },
+        "shim": {
+            "angular": { exports: "angular" },
+            "marked" : { 
+                exports: "marked",
+                init: function() {
+                    marked.setOptions({
+                        gfm: true
+                    });
+                }
+            },
+            "mathjax": {
+                exports: "MathJax",
+                init: function() {
+                    MathJax.Hub.Config({
+                        elements: [],
+                        skipStartupTypeset: false, // much faster for some reason...
+                        showMathMenu: false,
+                        zoom: "None",
+                        tex2jax: {
+                            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                            processEscapes: true,
+                        },
+                        "HTML-CSS": { availableFonts: ["TeX"] }
+                    });
+                    MathJax.Hub.Startup.onload();
+                    return MathJax;
+                }
+            }
+        }
+    });
+    </script>
+</head>

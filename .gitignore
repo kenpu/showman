@@ -1,4 +1,6 @@
 bin
 pkg
 src/github.com
+*.sublime-workspace
+*.sublime-project
 

@@ -1,0 +1,19 @@
+<div class="ng-template lego">
+    <div class="container">
+        <div ng-repeat="row in layout.rows" class="row">
+            <div ng-repeat="span in row.spans" class="block col-md-{{span.span}}">
+                <md markdown="{{span.markdown}}"></md>
+            </div>
+        </div>
+    </div>
+    <style>
+    .ng-template.lego {
+        padding-top: 20px;
+    }
+    .ng-template.lego .row,
+    .ng-template.lego .block {
+        border: thin solid #888;
+        min-height: 100px;
+    }
+    </style>
+</div>

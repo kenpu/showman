@@ -12,3 +12,8 @@ func (c *Edit) Get() {
     c.Data["Filename"] = filename
     c.Render()
 }
+
+func (c *Edit) Editor() {
+    c.TplNames = "intercom-editor.tpl"
+    c.Render()
+}

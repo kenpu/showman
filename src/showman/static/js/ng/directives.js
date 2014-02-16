@@ -26,19 +26,6 @@ define(["jquery", "marked", "angular", "angular-resource", "angular-sanitize"], 
             }
         }
     })
-    .directive('editor', function($http) {
-        return {
-            restrict: "E",
-            templateUrl: "/partials/editor.html",
-            replace: true,
-            link: function(scope, element, attrs) {
-                var getUrl = "/api/file/" + attrs.filename;
-                $http.get(getUrl).success(function(data) {
-                    scope.data = data;
-                });
-            }
-        }
-    })
     .directive('md', function() {
         return {
             restrict: 'E',
@@ -49,28 +36,6 @@ define(["jquery", "marked", "angular", "angular-resource", "angular-sanitize"], 
                     var html = marked(markdown);
                     element.html(html);
                 });
-            }
-        }
-    })
-    .directive("lego", function() {
-        return {
-            restrict: 'E',
-            templateUrl: "/partials/lego.html",
-            replace: true,
-            link: function(scope, element, attrs) {
-                scope.layout = {
-                    rows: [
-                        {
-                            type: "row",
-                            spans: [
-                                {
-                                    span: 4,
-                                    markdown: "__Markdown__ *!*.",
-                                },
-                            ]
-                        }
-                    ]
-                }
             }
         }
     })

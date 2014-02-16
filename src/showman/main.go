@@ -19,6 +19,7 @@ func main() {
     beego.Router("/", &C.HomePage{})
     beego.Router("/index/", &C.Repo{})
     beego.Router("/edit/*",  &C.Edit{})
+    beego.Router("/editor", &C.Edit{}, "get:Editor")
     beego.Router("/view/*",  &C.View{})
 
     // API

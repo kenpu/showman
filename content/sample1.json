@@ -1,8 +1,10 @@
 {
+    "lastId": 1,
     "rows": [
         {
             "spans": [
                 {
+                    "id": 1,
                     "label": "Nice label",
                     "markdown": "Lovely ladies.",
                     "span": 6

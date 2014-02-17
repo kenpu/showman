@@ -39,13 +39,13 @@
                         };
                         scope.SpanInsertBefore = function(span) {
                             findRow(span, function(row, idx) {
-                                row.spans.splice(idx, 0, newBlock());
+                                row.spans.splice(idx, 0, newSpan());
                             });
                         };
                         scope.SpanInsertAfter = function(span) {
                             findRow(span, function(row, idx) {
                                 console.debug("SpanInsertAfter at idx=",idx);
-                                row.spans.splice(idx+1, 0, newBlock());
+                                row.spans.splice(idx+1, 0, newSpan());
                             })
                         };
                         scope.SpanDelete = function(span) {
@@ -71,6 +71,16 @@
                                 }
                             });
                         }
+                        scope.RowInsertBefore = function(row) {
+                            forRow(row, function(i) {
+                                scope.content.rows.splice(i, 0, newRow());
+                            });
+                        }
+                        scope.RowInsertAfter = function(row) {
+                            forRow(row, function(i) {
+                                scope.content.rows.splice(i+1, 0, newRow());
+                            })
+                        }
 
                         function findRow(span, f) {
                             if(scope.content && scope.content.rows)
@@ -85,10 +95,28 @@
                                     }
                                 }
                         }
-                        function newBlock() {
+                        function forRow(row, f) {
+                            if(scope.content && scope.content.rows) {
+                                var idx = scope.content.rows.indexOf(row);
+                                if(idx >= 0) {
+                                    f(idx);
+                                } else {
+                                    console.debug("Oops, row not found", row);
+                                }
+                            }
+                        }
+                        function newSpan() {
+                            var id = scope.content.lastId + 1;
+                            scope.content.lastId += 1;
                             return {
+                                id: id,
                                 span: 4,
                                 markdown: "Your _markdown_ goes **here**.",
+                            }
+                        }
+                        function newRow() {
+                            return {
+                                spans: [ newSpan() ]
                             }
                         }
 

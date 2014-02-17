@@ -18,18 +18,28 @@
                     <textarea ng-model="span.markdown" class="span-textarea" ng-keyup="KeyPress($event, span)"></textarea>
                 </div>
             </div>
-        </div>
+
+            <div class="tools">
+                <span ng-click="RowInsertBefore(row)">+UP</span>
+                <span ng-click="RowInsertAfter(row)">+DN</span>
+                <span ng-click="RowMoveBefore(row)">UP</span>
+                <span ng-click="RowMoveBefore(row)">DN</span>
+            </div>
+        </div><!-- end of row -->
     </div>
     <style>
     .ng-template.lego {
         padding-top: 20px;
     }
-    .ng-template.lego .span-container {
+
+    /* ========= tools ============= */
+    .ng-template.lego .span-container,
+    .ng-template.lego .row {
         position: relative;
         min-height: 100px;
+        margin-bottom: 30px;
     }
-    .ng-template.lego .span-container .tools {
-        display: none;
+    .ng-template.lego .tools {
         height: 20px;
         width: 100%;
         position: absolute;
@@ -42,9 +52,8 @@
         text-align: right;
         -webkit-user-select: none;
     }
-    .ng-template.lego .span-container:hover .tools {
-        display: block;
-    }
+    .ng-template.lego .span-container .tools        { display: none;  }
+    .ng-template.lego .span-container:hover .tools  { display: block; }
     .ng-template.lego .tools span {
         cursor: pointer;
         margin-right: 5px;

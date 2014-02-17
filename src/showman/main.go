@@ -15,6 +15,9 @@ func main() {
     // Angular widgets
     beego.SetStaticPath("/partials", "partials")
 
+    // beego.TemplateLeft = "{{{"
+    // beego.TemplateRight = "}}}"
+
     // Views
     beego.Router("/", &C.HomePage{})
     beego.Router("/index/", &C.Repo{})

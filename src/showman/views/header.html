@@ -1,48 +1,38 @@
     <title>{{.Title}}</title>
     <link rel="stylesheet" href="/static/lib/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/lib/font-awesome-4.0.3/css/font-awesome.min.css">
-    <script src="/static/require.js"></script>
+
+    <!-- JS library includes -->
+    <script src="/static/lib/jquery.min.js"></script>
+    <script src="/static/lib/angular/angular.min.js"></script>
+    <script src="/static/lib/angular/angular-resource.min.js"></script>
+    <script src="/static/lib/angular/angular-sanitize.min.js"></script>
+    <script src="/static/lib/marked.js"></script>
+    <script src="/static/lib/intercom.js"></script>
+    <!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured"></script> -->
+
+    <!-- JS application common includes -->
+    <script src="/static/js/ng-directives.js"></script>
+
+    <!-- Initialization -->
     <script>
-    requirejs.config({
-        "baseUrl": "/static",
-        "paths": {
-          "jquery": "/static/lib/jquery.min",
-          "angular": "/static/lib/angular/angular.min",
-          "angular-resource": "/static/lib/angular/angular-resource.min",
-          "angular-sanitize": "/static/lib/angular/angular-sanitize.min",
-          "marked": "/static/lib/marked",
-          "intercom": "/static/lib/intercom.amd.min",
-          "mathjax": "http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML&amp;delayStartupUntil=configured",
-        },
-        "shim": {
-            "angular": { exports: "angular" },
-            "marked" : { 
-                exports: "marked",
-                init: function() {
-                    marked.setOptions({
-                        gfm: true
-                    });
-                }
+    function MarkedInit() {
+        marked.setOptions({gfm: 1});
+    }
+    function MathJaxInit() {
+        MathJax.Hub.Config({
+            elements: [],
+            skipStartupTypeset: false, // much faster for some reason...
+            showMathMenu: false,
+            zoom: "None",
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                processEscapes: true,
             },
-            "mathjax": {
-                exports: "MathJax",
-                init: function() {
-                    MathJax.Hub.Config({
-                        elements: [],
-                        skipStartupTypeset: false, // much faster for some reason...
-                        showMathMenu: false,
-                        zoom: "None",
-                        tex2jax: {
-                            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-                            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-                            processEscapes: true,
-                        },
-                        "HTML-CSS": { availableFonts: ["TeX"] }
-                    });
-                    MathJax.Hub.Startup.onload();
-                    return MathJax;
-                }
-            },
-        }
-    });
+            "HTML-CSS": { availableFonts: ["TeX"] }
+        });
+        MathJax.Hub.Startup.onload();
+    }
+    MarkedInit();
     </script>

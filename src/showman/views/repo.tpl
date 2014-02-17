@@ -8,10 +8,20 @@
             <filelist resource="/index/"></filelist>
         </div>
         <script>
-        requirejs(["jquery", "angular", "js/ng/directives"], function($, angular) {
-            angular.module("app", ["commonDirectives"]);
-            angular.bootstrap($("html"), ["app"])
+        var app = angular.module("app", ["commonDirectives"]);
+        app.directive('filelist', function($http) {
+            return {
+                restrict: "E",
+                templateUrl: "/partials/filelist.html",
+                replace: true,
+                link: function($scope, element, attrs) {
+                    $http.post(attrs.resource).success(function(data) {
+                        $scope.files = data.files;
+                    });
+                }
+            }
         });
+        angular.bootstrap($("html"), ["app"])
         </script>
     </body>
 </html>

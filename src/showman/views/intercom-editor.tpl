@@ -1,39 +1,45 @@
 <!DOCTYPE html>
 
 <html>
-    <head>{{template "header.html" .}}</head>
-    <body style="margin-top: 50px;" ng-controller="Ctrl">
-        <textarea ng-model="markdown"></textarea>
-        <button>Save</button>
-        <style>
+    <head>
+    {{template "header.html" .}}
+    <style>
         textarea {
+            position: fixed;
             width: 100%;
-            height: 600px;
-            background: #444;
+            height: 400px;
+            bottom: 0;
+            left: 0;
+        }
+    </style>
+    </head>
+    <body style="margin-top: 50px" ng-controller="Ctrl">
+        {{template "fragments/navbar.html" .}}
+        <ul navbar>
+            <li><a href="#">{{.Filename}} ({{.SpanId}})</a></li>
+        </ul>
+        <textarea autofit></textarea>
 
-        }
-        button {
-            float; right;
-        }
-        </style>
         <script>
-        requirejs(["jquery", "angular", "intercom", "js/ng/directives", "js/ng/controllers"], function($, angular, Intercom) {
-            console.debug("Intercom is here", Intercom.getInstance());
-            var app = angular.module("app", ["commonDirectives", "commonControllers"]);
-            app.controller('Ctrl', function($scope) {
-                $scope.markdown = "";
-                var intercom = Intercom.getInstance();
-                intercom.on('ping-editor', function() {
-                    intercom.emit('editor-alive');
+        var app = angular.module("app", ["commonDirectives"]);
+        app.controller('Ctrl', function($scope, $window) {
+            $scope.height = $window.innerHeight;
+            $window.onresize = function() {
+                $scope.$apply(function() {
+                    $scope.height = $window.innerHeight;
                 });
-                intercom.on('request', function(data) {
-                    $scope.$apply(function() {
-                        $scope.markdown = data;
-                    })
-                });
-            });
-            angular.bootstrap($("html"), ["app"])
+            }
         });
+        app.directive("autofit", function($window) {
+            return function(scope, element, attr) {
+                scope.$watch('height', function(h) {
+                    console.debug("h = ", h)
+                    element.css('height', h-50);
+                });
+                element.focus();
+            }
+        });
+        angular.bootstrap($("html"), ["app"]);
         </script>
     </body>
 </html>

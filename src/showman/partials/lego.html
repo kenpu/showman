@@ -4,6 +4,7 @@
             <div ng-repeat="span in row.spans" class="span col-md-{{span.span}}">
                 <div class="span-container" ng-class="{'with-label': span.label}">
                     <div ng-if="span.label" class="span-label">{{span.label}}</div>
+                    <div class="span-id">{{span.id}}</div>
                     <md markdown="{{span.markdown}}" ng-click="ding()"></md>
                     <div class="tools">
                         <span ng-click="Edit(span)">E</span>
@@ -23,7 +24,7 @@
                 <span ng-click="RowInsertBefore(row)">+UP</span>
                 <span ng-click="RowInsertAfter(row)">+DN</span>
                 <span ng-click="RowMoveBefore(row)">UP</span>
-                <span ng-click="RowMoveBefore(row)">DN</span>
+                <span ng-click="RowMoveAfter(row)">DN</span>
             </div>
         </div><!-- end of row -->
     </div>
@@ -61,16 +62,33 @@
     .ng-template.lego .tools span:hover {
         color: #fff;
     }
+    /* ======== id ================ */
+    .ng-template.lego .span-id {
+        width: 15px;
+        height: 15px;
+        margin-left: -20px;
+        float: left;
+        text-align: center;
+        background: #000;
+        color: #fff;
+        border-radius: 50%;
+        font-weight: bold;
+        font-size: 12px;
+        line-height: 12x;
+        padding: 0;
+    }
     /* ======== label ============= */
     .ng-template.lego .with-label {
         margin-top: 30px;
+        border: thin solid #888;
+        padding: 3px 5px 0px 5px;
     }
     .ng-template.lego .with-label .span-label {
         display: block;
         position: absolute;
         left: 0;
         width: 100%;
-        background: #f00;
+        background: #000;
         color: #fff;
         font-size: 15px;
         font-weight: bold;

@@ -8,7 +8,7 @@
             <li class="active"><a href="#">{{.Filename}}</a></li>
         </ul>
 
-        <lego></lego>
+        <lego style="padding-top: 50px;"></lego>
 
         <script>
         var ESCAPE = 27;
@@ -80,6 +80,13 @@
                             }
                         });
                     }
+                    scope.SpanGrow = function(span, delta) {
+                        if(delta) {
+                            span.span += delta;
+                        }
+                    }
+
+
                     scope.RowInsertBefore = function(row) {
                         forRow(row, function(i) {
                             scope.content.rows.splice(i, 0, newRow());
@@ -106,6 +113,9 @@
                             }
                         })
                     }
+                    scope.RowAppend = function(row) {
+                        row.spans.push(newSpan(row));
+                    }
 
                     function findRow(span, f) {
                         if(scope.content && scope.content.rows)
@@ -130,23 +140,44 @@
                             }
                         }
                     }
-                    function newSpan() {
+                    function newSpan(row) {
                         var id = scope.content.lastId + 1;
                         scope.content.lastId += 1;
+                        var w = 4; // default width for the new span.
+                        if(row) {
+                            w = 12 - row.spans.reduce(function(x, span) { return x + span.span; }, 0);
+                            if(w < 1) w = 1;
+                        }
                         return {
                             id: id,
-                            span: 4,
+                            span: w,
                             markdown: "Your _markdown_ goes **here**.",
                         }
                     }
                     function newRow() {
-                        return {
-                            spans: [ newSpan() ]
-                        }
+                        var row = { spans: [] };
+                        var span = newSpan(row);
+                        row.spans.push(span);
+                        return row;
                     }
                 }
             }
-        })
+        });
+
+        app.directive('spanControls', function() {
+            return {
+                restrict: 'E',
+                templateUrl: '/partials/lego-spancontrols.html',
+                replace: true,
+            }
+        });
+        app.directive('rowControls', function() {
+            return {
+                restrict: 'E',
+                templateUrl: '/partials/lego-rowcontrols.html',
+                replace: true,
+            }
+        });
 
         angular.bootstrap($("html"), ["app"]);
         </script>
